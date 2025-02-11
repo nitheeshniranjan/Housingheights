@@ -1,5 +1,3 @@
-export const heroVideoUrl = "https://drive.google.com/uc?export=download&id=1XOhgt3kzjCjpXlvDP2u8XWsfx3K0SVsZ";
-
 
 export const nav = [
     {
@@ -350,6 +348,79 @@ export const nav = [
       lat: 12.9716,
       lng: 77.5946,
       virtualTour: "https://example.com/villa-bangalore-360.jpg",
+    },
+  ];
+  export const whyChooseUsData = [
+    {
+      title: "Secure Transactions",
+      description:
+        "We ensure safe deals with verified listings and legal support.",
+      icon: "🔒",
+    },
+    {
+      title: "Verified Listings",
+      description: "Every property is thoroughly vetted to avoid fraud.",
+      icon: "✅",
+    },
+    {
+      title: "Legal Support",
+      description: "Get legal assistance for hassle-free transactions.",
+      icon: "⚖️",
+    },
+    {
+      title: "Direct Chat & Support",
+      description: "Chat with property owners and get real-time assistance.",
+      icon: "💬",
+    },
+  ];
+  export const testimonials = [
+    {
+      id: 1,
+      name: "John Doe",
+      role: "Home Buyer",
+      review: "Finding my dream home was never this easy! The agents were so helpful.",
+      rating: 5,
+      image: "/images/testimonials/user1.jpg",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      role: "Seller",
+      review: "I sold my property in just 2 weeks! Highly recommended!",
+      rating: 4,
+      image: "/images/testimonials/user2.jpg",
+    },
+    {
+      id: 3,
+      name: "Michael Lee",
+      role: "Real Estate Agent",
+      review: "This website transformed my career! I close deals faster now.",
+      rating: 5,
+      image: "/images/testimonials/user3.jpg",
+    },
+    {
+      id: 4,
+      name: "Sophia Green",
+      role: "Home Buyer",
+      review: "The search filters helped me find exactly what I was looking for!",
+      rating: 4.5,
+      image: "/images/testimonials/user4.jpg",
+    },
+    {
+      id: 5,
+      name: "David Wilson",
+      role: "Investor",
+      review: "I found great investment opportunities here. Amazing platform!",
+      rating: 4,
+      image: "/images/testimonials/user5.jpg",
+    },
+    {
+      id: 6,
+      name: "Emma Brown",
+      role: "Renter",
+      review: "The rental listings are accurate, and the support is amazing!",
+      rating: 5,
+      image: "/images/testimonials/user6.jpg",
     },
   ];
   

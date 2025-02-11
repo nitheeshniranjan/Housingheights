@@ -1,6 +1,5 @@
 import React from "react";
 import Heading from "../../common/Heading";
-import { heroVideoUrl }  from "../../data/Data"; 
 import "./hero.css";
 
 const Hero = () => {
@@ -8,7 +7,7 @@ const Hero = () => {
     <section className="hero">
       {/* Background Video */}
       <video autoPlay loop muted className="hero-video">
-        <source src={heroVideoUrl} type="video/mp4" />
+        <source src="/videos/bannerVideo.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -53,6 +52,5 @@ const Hero = () => {
     </section>
   );
 };
-
 
 export default Hero;

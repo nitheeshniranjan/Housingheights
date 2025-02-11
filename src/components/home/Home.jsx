@@ -4,6 +4,8 @@ import Featured from "./featured/Featured"
 import Recent from "./recent/Recent"
 import HowItWorks from "./howItWorks/HowItWorks"
 import VirtualTours from "./virtualTours/VirtualTours"
+import WhyChooseUs from "./whyChooseUs/WhyChooseUs"
+import Testimonials from "./testimonials/Testimonials"
 
 //import Awards from "./awards/Awards"
 //import Location from "./location/Location"
@@ -18,6 +20,8 @@ const Home = () => {
       <Recent />
       <HowItWorks />
       <VirtualTours />
+      <WhyChooseUs/>
+      <Testimonials/>
      {/* Awards />
       <Location />
       <Team />
