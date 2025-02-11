@@ -1,13 +1,10 @@
-import React from "react";
-import Header from "./components/common/header/Header";
+
+import Pages from "./components/pages/Pages"
 
 function App() {
-  return (
-    <div>
-      <Header />
-    </div>
-  );
+  return <Pages />
 }
 
 export default App;
+
 

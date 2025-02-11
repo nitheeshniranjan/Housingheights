@@ -1,116 +1,171 @@
-/* Main Header Styling */
+/* Default Header */
+*{
+  margin:0
+}
 header {
-  background-color: #fff;
-  height: 120px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  padding: 0 20px;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-}
-
-/* Container for alignment */
-.container {
+  left: 0;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content:space-around;
-}
-.logo {
-  position: absolute;
-  left: 230px;  /* Move it towards the left */
- 
+  padding: 20px 40px;
+  background: transparent; /* Initially transparent */
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  z-index: 9999;
 }
 
-/* Logo Styling */
-.logo img {
-  width: 300px;
-  margin-bottom:20px;
+/* Header after scroll */
+header.scrolled {
+  background: rgba(255, 255, 255, 0.9); /* Light background on scroll */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Container */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1600px;
+  margin: 0 auto;
   
 }
 
-/* Navigation Links Centered */
-.nav {
-  flex-grow: 1;
-  text-align: center;
-  color:#1B2A41;
+/* Logo */
+.logo img {
+  height: 50px;
 }
 
+/* Navigation */
 .nav ul {
   display: flex;
-  justify-content: center;
-  gap: 50px;
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .nav ul li {
-  font-size: 28px;
-  font-weight: 600;
+  margin: 0 20px;
+
 }
 
 .nav ul li a {
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
   text-decoration: none;
-  color: black;
   transition: color 0.3s ease;
 }
 
-.nav ul li a:hover {
-  color: #27ae60;
+/* Change text color on scroll */
+header.scrolled .nav ul li a {
+  color: black;
 }
 
-/* Right Section (Heart & Sign-in Button) */
+/* Right Section */
 .right-section {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-left: 0px; /* Push everything to the right */
-  padding-right: 0px; 
+  gap: 40px;
 }
 
-/* Heart Icon Styling */
-.right-section .fa-heart {
-  font-size: 32px;
+/* Search Icon */
+.search-container {
+  position: relative;
+}
+
+.search-icon {
+  font-size: 26px;
   cursor: pointer;
-  transition: color 0.3s ease-in-out;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+/* Change search icon color on scroll */
+header.scrolled .search-icon {
+  color: black;
+}
+
+/* Search Bar */
+.search-bar {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  padding: 5px;
+  width: 200px;
+}
+
+.close-search {
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  color: gray;
+}
+
+/* Wishlist Heart Icon */
+.fa-heart {
+  font-size: 26px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  color: white;
+}
+
+.liked {
+  color: red !important;
+}
+
+/* Change heart icon color on scroll */
+header.scrolled .fa-heart {
+  color: black;
 }
 
 /* Sign-in Button */
-.btn1 {
-  background-color: #1F4037;
+.signbtn1 {
+  background-color: #ff5722;
   color: white;
-  border: none;
-  padding: 16px 24px;
-  cursor: pointer;
-  font-size: 24px;
+  padding: 16px 26px;
+  font-size: 26px;
   font-weight: 600;
-  border-radius: 5px;
-  transition: background 0.3s ease-in-out;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-.btn1:hover {
-  background-color:  #C2A87E;
-  color:#1F4037;
+/* Change button background on scroll */
+header.scrolled .signbtn1 {
+  background-color: black;
+  color: white;
 }
 
-/* Mobile View Adjustments */
+/* Mobile Menu Toggle */
 .toggle {
-  display: none;
+  display: none; /* Hidden by default */
 }
 
+.toggle button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
 
-/* Responsive Styling */
-@media screen and (max-width: 768px) {
-  .container {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+/* Change toggle button color on scroll */
+header.scrolled .toggle button {
+  color: black;
+}
 
+/* Responsive Styles */
+@media (max-width: 768px) {
   .nav {
     display: none;
   }
@@ -119,7 +174,24 @@ header {
     display: block;
   }
 
-  .right-section {
-    display: none;
+  .nav ul {
+    display: block;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: white;
+    width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .nav ul li {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .nav ul li a {
+    color: black;
+    display: block;
   }
 }
