@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import "./header.css";
 import { nav } from "../../data/Data";
 
 const Header = () => {
+  const navigate = useNavigate(); // ✅ Initialize navigate
+
   const [navList, setNavList] = useState(false);
   const [liked, setLiked] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -58,9 +61,9 @@ const Header = () => {
               onClick={() => setLiked(!liked)}
             ></i>
 
-            {/* Sign-in Button */}
-            <button className="signbtn1">
-              <i className="fa fa-sign-out"></i> Sign In
+            {/* ✅ Sign Up Button (Fixed) */}
+            <button className="signbtn1" onClick={() => navigate("/signup")}>
+              Sign In
             </button>
           </div>
 
