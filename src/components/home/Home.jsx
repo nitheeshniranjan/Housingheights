@@ -20,14 +20,14 @@ const Home = () => {
       <Recent />
       <HowItWorks />
       <VirtualTours />
-      <WhyChooseUs/>
-      <Testimonials/>
+   <WhyChooseUs />
+   <Testimonials />
      {/* Awards />
       <Location />
       <Team />
       <Price /> */}
     </>
   )
-}
+};
 
-export default Home
+export default Home;

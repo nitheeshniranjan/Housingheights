@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Heading from "../../common/Heading";
 import "./hero.css";
 
 const Hero = () => {
+  const navigate = useNavigate(); // Hook to navigate between pages
+
   return (
     <section className="hero">
       {/* Background Video */}
@@ -30,6 +33,8 @@ const Hero = () => {
           <button className="cta-button">Sell</button>
         </div>
 
+   
+
         {/* Search Form */}
         <form className="search-form">
           <div className="box">
@@ -48,6 +53,8 @@ const Hero = () => {
             <i className="fa fa-search"></i>
           </button>
         </form>
+        
+
       </div>
     </section>
   );

@@ -24,6 +24,13 @@
     font-style: italic;
   }
   
+  /* Ensure Featured Section Stacks Content Vertically */
+.featured .container {
+  display: flex;
+  flex-direction: column; /* Stacks heading and cards vertically */
+  align-items: center; /* Centers them */
+  text-align: center;
+}
   /* Featured Cards Container */
   .featured-cards {
     display: flex;
