@@ -1,3 +1,6 @@
+export const heroVideoUrl = "https://drive.google.com/uc?export=download&id=1XOhgt3kzjCjpXlvDP2u8XWsfx3K0SVsZ";
+
+
 export const nav = [
     {
       text: "Home",
