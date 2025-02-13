@@ -4,10 +4,13 @@
     padding: 80px 0;
     text-align: center;
   }
+  .container{
+    padding-bottom: 80px;
+  }
   
   /* Heading Styling */
   .heading-container {
-    margin-bottom: 50px;
+    margin-bottom: 70px;
     animation: fadeIn 1.2s ease-in-out;
   }
   
@@ -19,7 +22,7 @@
   }
   
   .heading-container p {
-    font-size: 20px;
+    font-size: 22px;
     color: #666; /* Subtle gray for secondary text */
     font-style: italic;
   }
@@ -41,14 +44,14 @@
   
   /* Individual Featured Box */
   .featured-box {
-    background: #f9f9f9; /* Light gray for subtle contrast */
+    background: #f4f2f2; /* Light gray for subtle contrast */
     border-radius: 12px;
     padding: 25px;
     text-align: center;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    width: 220px;
+    width: 300px;
     position: relative;
     overflow: hidden;
   }
@@ -61,8 +64,8 @@
   
   /* Image Container */
   .img-container {
-    width: 90px;
-    height: 90px;
+    width: 120px;
+    height: 120px;
     margin: 0 auto 15px;
     border-radius: 50%;
     display: flex;
@@ -85,17 +88,18 @@
   
   /* Featured Text */
   .featured-box h4 {
-    font-size: 22px;
+    font-size: 28px;
     color: #333; /* Darker text for readability */
     font-weight: 600;
+    margin-top: 10px;
   }
   
   .featured-box label {
-    font-size: 18px;
+    font-size: 20px;
     color: #777;
     font-weight: 500;
     display: block;
-    margin-top: 5px;
+    margin-top: 10px;
   }
   
   /* Responsive Design */

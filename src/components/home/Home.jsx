@@ -6,11 +6,9 @@ import HowItWorks from "./howItWorks/HowItWorks"
 import VirtualTours from "./virtualTours/VirtualTours"
 import WhyChooseUs from "./whyChooseUs/WhyChooseUs"
 import Testimonials from "./testimonials/Testimonials"
+import PropertyInsights from "./propertyInsights/PropertyInsights"
+import Contact from "./contact/Contact"
 
-//import Awards from "./awards/Awards"
-//import Location from "./location/Location"
-//import Team from "./team/Team"
-//import Price from "./price/Price"
 
 const Home = () => {
   return (
@@ -22,10 +20,9 @@ const Home = () => {
       <VirtualTours />
    <WhyChooseUs />
    <Testimonials />
-     {/* Awards />
-      <Location />
-      <Team />
-      <Price /> */}
+   <PropertyInsights />
+   <Contact />
+
     </>
   )
 };

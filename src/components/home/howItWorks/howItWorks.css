@@ -1,98 +1,86 @@
 .how-it-works {
   text-align: center;
-  padding: 80px 20px;
-  background-color: #f4f4f4;
+  padding: 80px 10px;
+  background-color: rgba(255, 223, 186, 0.3); /* Light peach with some transparency */
+  color: #4f4f4f; /* Darker gray text for a softer contrast */
 }
 
 .how-it-works h2 {
-  font-size: 3.5rem;
-  margin-bottom: 60px;
-  color: #333;
+  font-size: 3rem;
+  margin-bottom: 40px;
+  font-weight: 600;
+  color: #543724; /* Muted peachy-brown */
+
 }
 
-/* Timeline container */
-.timeline {
+.slider-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  max-width: 60%;
+  margin: auto;
+  background-color: rgba(255, 204, 173, 0.4); /* Soft peach tint */
+  padding: 40px;
+  border-radius: 12px;
+  backdrop-filter: blur(8px); /* Subtle blur effect */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
   position: relative;
 }
 
-/* Vertical line */
-.timeline::before {
-  content: "";
-  position: absolute;
-  width: 6px;
-  background-color: #ff6600;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* Timeline items */
-.timeline-item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  max-width: 900px;
-  margin-bottom: 50px;
-  position: relative;
-}
-
-.timeline-item.right {
-  justify-content: flex-end;
-}
-
-/* Step card styling */
-.step-card {
-  background: white;
-  padding: 40px 30px;
-  border-radius: 10px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+.step-content {
   text-align: center;
-  transition: transform 0.3s ease-in-out;
+  max-width: 500px;
 }
 
-.step-card:hover {
-  transform: translateY(-10px);
-}
-
-/* Number styling */
 .step-number {
   display: inline-block;
-  background: #ff6600;
-  color: white;
-  font-size: 2rem;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
+  background-color: rgba(255, 189, 140, 0.7); /* Muted peach background */
+  color: #51321f; /* Soft peachy orange text */
+  font-size: 2.2rem;
+  width: 55px;
+  height: 55px;
+  line-height: 55px;
   border-radius: 50%;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
-/* Step title */
-.step-card h3 {
-  font-size: 2rem;
+.step-content h3 {
+  font-size: 2.5rem;
   margin: 10px 0;
-  color: #222;
+  font-weight: 500;
+  color: #4e331f; /* Muted beige peach */
 }
 
-/* Step description */
-.step-card p {
-  font-size: 1.4rem;
-  color: #555;
+.step-content p {
+  font-size: 1.6rem;
+  color: #554434; /* Soft, neutral peach */
+  opacity: 0.8; /* Slightly faded to blend more smoothly */
 }
 
-/* Responsive Design */
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: #e67c50; /* Muted peachy brown */
+  transition: transform 0.2s ease;
+}
+
+.nav-btn:hover {
+  transform: scale(1.05); /* Soft hover effect */
+  color: #d98e60; /* Muted peach-brown */
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
-  .timeline::before {
-    left: 5%;
-  }
-
-  .timeline-item {
-    justify-content: center !important;
+  .slider-container {
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
   }
 }

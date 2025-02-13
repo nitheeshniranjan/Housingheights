@@ -1,30 +1,18 @@
 
-export const nav = [
-    {
-      text: "Home",
-      path: "/",
-    },
-    {
-      text: "About",
-      path: "/about",
-    },
-    {
-      text: "Services",
-      path: "/services",
-    },
-    {
-      text: "Blog",
-      path: "/blog",
-    },
-    {
-      text: "Pricing",
-      path: "/pricing",
-    },
-    {
-      text: "Contact",
-      path: "/contact",
-    },
-  ]
+export const navData = [
+  { name: "Home", link: "/" },
+  {
+    name: "Buy",
+    submenu: ["Apartments", "Villas", "Plots", "Commercial"],
+  },
+  { name: "Rent", link: "/rent" },
+  { name: "Sell", link: "/sell" },
+  { name: "List Property", link: "/list-property", highlight: true },
+  { name: "Agents", link: "/agents" },
+  { name: "Contact", link: "/contact" },
+];
+
+
   
   export const featured = [
     {
@@ -423,4 +411,18 @@ export const nav = [
       image: "/images/testimonials/user6.jpg",
     },
   ];
+  export const insightsData = [
+    { title: "Market Trends 📈", description: "Real estate prices are projected to rise by 5% in 2025." },
+    { title: "Investment Hotspots 🔥", description: "Top locations: Bangalore, Hyderabad, and Pune for high ROI." },
+    { title: "Rent vs. Buy? 🏠", description: "Buying is 20% more cost-effective if staying for 5+ years." },
+    { title: "Smart Home Boom 🤖", description: "80% of new buyers prefer homes with smart tech integration." },
+    { title: "Government Policies 🏛️", description: "Tax benefits for first-time home buyers have increased." },
+  ];
+  export const contactData = {
+    description: "Feel free to reach out to us for any queries or support.",
+    email: "hello@relume.io",
+    phone: "+1 (555) 000-0000",
+    address: "123 Sample St, Sydney NSW 2000 AU",
+  };
   
+    

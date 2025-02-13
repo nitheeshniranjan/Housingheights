@@ -100,7 +100,7 @@ input, select {
   width: 100%;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 19px;
   cursor: pointer;
   margin-top: 15px;
 }
@@ -121,6 +121,17 @@ input, select {
   font-weight: 400;
 }
 
+.forgot-password-btn{
+  background: #f7e7e8;
+  color: #541a08;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  cursor: pointer;
+  margin-top: 15px;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .signup-container {

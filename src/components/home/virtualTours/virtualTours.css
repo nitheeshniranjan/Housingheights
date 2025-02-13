@@ -1,9 +1,10 @@
 .virtual-tours-container {
     text-align: center;
-    padding: 20px;
+    padding: 60px;
+    margin-top: 20px;
   }
   .virtual-tours-container h2{
-    font-size: 32px;
+    font-size: 36px;
   }
   
   .map-container {

@@ -1,78 +1,57 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { 
-  auth, 
-  googleProvider, 
-  signInWithPopup
-} from "../../firebaseConfig"; 
+import { auth, googleProvider, signInWithPopup } from "../../firebaseConfig";
 import "./SignUp.css";
 
+
 const SignUp = () => {
-  const [formData, setFormData] = useState({ 
-    name: "", 
-    email: "", 
-    password: "", 
-    role: "" 
-  });
-  
+  const [formData, setFormData] = useState({ name: "", email: "", password: "", role: "" });
   const navigate = useNavigate();
 
-  // Handle Input Change
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  // Handle Sign-Up with Email
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (formData.role === "") {
       alert("Please select a role before signing up!");
       return;
     }
-
-    console.log("User Registered:", formData);
-    alert(`Registration Successful as a ${formData.role}! Check your email for confirmation.`);
-
-    // Redirect to Home Page with Profile after Registration
+    alert(`Registered Successfully as ${formData.role}!`);
     navigate("/home", { state: { user: formData } });
   };
 
-  // Google Sign-In
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-
-      console.log("Google User Info:", user);
       alert(`Signed in as ${user.email}`);
-
-      // Pass only serializable data to navigate
-      navigate("/home", { 
-        state: { 
-          user: {
-            email: user.email,
-            displayName: user.displayName,
-            uid: user.uid, 
-          } 
-        } 
-      });
+      navigate("/home", { state: { user: { email: user.email, displayName: user.displayName, uid: user.uid } } });
     } catch (error) {
-      console.error("Google Sign-In Error:", error);
-      alert(`Google Sign-In Failed! Error: ${error.message}`);
+      alert(`Google Sign-In Failed: ${error.message}`);
     }
   };
 
   return (
     <div className="signup-container">
-      <div className="signup-box">
-        <h2>Create an Account</h2>
-        <form onSubmit={handleSubmit}>
+      {/* Left Side - Logo & Benefits */}
+      <div className="signup-left">
+        <img src={"/images/logoo.png"} alt="Website Logo" className="SignUplogo" onClick={() => navigate("/")} />
+        <h3>Why Join Us?</h3>
+        <ul className="benefits-list">
+          <li>✔️ Access exclusive deals & offers</li>
+          <li>✔️ Personalized recommendations</li>
+          <li>✔️ Quick & easy sign-in experience</li>
+          <li>✔️ Secure & seamless transactions</li>
+        </ul>
+      </div>
+
+      {/* Right Side - Sign Up Form */}
+      <div className="signup-right">
+        <h2>Sign Up</h2>
+        <form onSubmit={handleSubmit} className="signup-form">
           <input type="text" name="name" placeholder="Full Name" onChange={handleChange} required />
           <input type="email" name="email" placeholder="Email Address" onChange={handleChange} required />
           <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-
-          {/* Role Selection */}
           <select name="role" onChange={handleChange} required>
             <option value="">Select Role</option>
             <option value="buyer">Buyer</option>
@@ -80,13 +59,9 @@ const SignUp = () => {
             <option value="agent">Agent</option>
             <option value="admin">Admin</option>
           </select>
-
           <button type="submit" className="btn">Sign Up</button>
         </form>
-
-        <br/> or <br/>
-
-        {/* Google Authentication */}
+        
         <div className="social-login">
           <button className="google-btn" onClick={handleGoogleSignIn}>
             <i className="fa fa-google"></i> Sign Up with Google

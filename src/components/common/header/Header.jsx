@@ -1,81 +1,94 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FaSearch, FaHeart, FaBars, FaTimes } from "react-icons/fa";
+import { navData } from "../../data/Data";
 import "./header.css";
-import { nav } from "../../data/Data";
 
 const Header = () => {
-  const navigate = useNavigate(); // ✅ Initialize navigate
+  const [scrolled, setScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [buyOpen, setBuyOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const [navList, setNavList] = useState(false);
-  const [liked, setLiked] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <>
-      <header>
-        <div className="container">
-          {/* Logo */}
-          <div className="logo">
-            <img src="./images/logo.png" alt="Housing Heights" />
-          </div>
+    <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className="container">
+        {/* Logo */}
+        <Link to="/">
+          <img src="/images/logoo.png" alt="Logo" className="Headerlogo" />
+        </Link>
 
-          {/* Navigation */}
-          <nav className="nav">
-            <ul className="flex">
-              {nav.map((list, index) => (
-                <li key={index}>
-                  <a href={list.path}>{list.text}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Right Section (Search, Wishlist, Sign-in) */}
-          <div className="right-section">
-            {/* Search Icon */}
-            <div className="search-container">
-              <i 
-                className="fa fa-search search-icon"
-                onClick={() => setShowSearch(!showSearch)}
-              ></i>
-              {showSearch && (
-                <div className="search-bar">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                  <i 
-                    className="fa fa-times close-search"
-                    onClick={() => setShowSearch(false)}
-                  ></i>
-                </div>
-              )}
-            </div>
-
-            {/* Wishlist Heart Icon */}
-            <i
-              className={liked ? "fa-solid fa-heart liked" : "fa-regular fa-heart"}
-              onClick={() => setLiked(!liked)}
-            ></i>
-
-            {/* ✅ Sign Up Button (Fixed) */}
-            <button className="signbtn1" onClick={() => navigate("/signup")}>
-              Sign In
-            </button>
-          </div>
-
-          {/* Mobile menu toggle */}
-          <div className="toggle">
-            <button onClick={() => setNavList(!navList)}>
-              {navList ? <i className="fa fa-times"></i> : <i className="fa fa-bars"></i>}
-            </button>
-          </div>
+        {/* Hamburger Icon for Mobile */}
+        <div className="mobile-menu-icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
-      </header>
-    </>
+
+        {/* Navigation */}
+        <nav className={`nav-menu ${mobileMenuOpen ? "open" : ""}`}>
+          <ul className="nav-links">
+            {navData.map((item, index) =>
+              item.submenu ? (
+                <li
+                  key={index}
+                  className="dropdown"
+                  onMouseEnter={() => setBuyOpen(true)}
+                  onMouseLeave={() => setBuyOpen(false)}
+                >
+                  <span className="nav-link">
+                    Buy <span className="dropdown-icon">▼</span>
+                  </span>
+                  {buyOpen && (
+                    <ul className="dropdown-menu">
+                      {item.submenu.map((subItem, subIndex) => (
+                        <li key={subIndex}>
+                          <Link to={`/buy/${subItem.toLowerCase()}`}>{subItem}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ) : (
+                <li key={index}>
+                  <Link to={item.link} className={item.highlight ? "nav-link highlight" : "nav-link"}>
+                    {item.name}
+                  </Link>
+                </li>
+              )
+            )}
+          </ul>
+        </nav>
+
+        {/* Icons and Search Bar */}
+        <div className="icons">
+          <div className="search-container">
+  {searchOpen && (
+    <div className="search-box">
+      <input type="text" placeholder="Search..." />
+      <FaSearch className="search-icon" onClick={() => setSearchOpen(false)} />
+    </div>
+  )}
+  {!searchOpen && <FaSearch className="icon" onClick={() => setSearchOpen(true)} />}
+</div>
+
+          <FaHeart className="icon" />
+          <button 
+  className="signup-btn" 
+  onClick={() => window.open('/signup', '_blank', 'noopener,noreferrer')}
+>
+  Sign Up
+</button>
+
+        </div>
+      </div>
+    </header>
   );
 };
 
