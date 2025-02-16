@@ -22,7 +22,7 @@ const Hero = () => {
         <div className="text-container">
           <Heading 
             title="Search Your Next Home" 
-            subtitle="Find new & featured property located in your local city." 
+            subtitle="Find new & featured property located in your local city or any city." 
           />
         </div>
 

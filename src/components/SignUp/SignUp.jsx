@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, googleProvider, signInWithPopup } from "../../firebaseConfig";
+import axios from "axios";
 import "./SignUp.css";
-
 
 const SignUp = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "", role: "" });
@@ -10,24 +9,22 @@ const SignUp = () => {
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.role === "") {
+
+    if (!formData.role) {
       alert("Please select a role before signing up!");
       return;
     }
-    alert(`Registered Successfully as ${formData.role}!`);
-    navigate("/home", { state: { user: formData } });
-  };
 
-  const handleGoogleSignIn = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      alert(`Signed in as ${user.email}`);
-      navigate("/home", { state: { user: { email: user.email, displayName: user.displayName, uid: user.uid } } });
+      // Send request to Spring Boot backend
+      const response = await axios.post("http://localhost:8080/auth/signup", formData);
+      
+      alert(response.data.message || "Registered Successfully!");
+      navigate("/login");
     } catch (error) {
-      alert(`Google Sign-In Failed: ${error.message}`);
+      alert("Registration Failed: " + (error.response?.data?.message || error.message));
     }
   };
 
@@ -35,7 +32,7 @@ const SignUp = () => {
     <div className="signup-container">
       {/* Left Side - Logo & Benefits */}
       <div className="signup-left">
-        <img src={"/images/logoo.png"} alt="Website Logo" className="SignUplogo" onClick={() => navigate("/")} />
+        <img src={"/images/logo.png"} alt="Website Logo" className="SignUplogo" onClick={() => navigate("/")} />
         <h3>Why Join Us?</h3>
         <ul className="benefits-list">
           <li>✔️ Access exclusive deals & offers</li>
@@ -61,12 +58,6 @@ const SignUp = () => {
           </select>
           <button type="submit" className="btn">Sign Up</button>
         </form>
-        
-        <div className="social-login">
-          <button className="google-btn" onClick={handleGoogleSignIn}>
-            <i className="fa fa-google"></i> Sign Up with Google
-          </button>
-        </div>
 
         <p>Already have an account? <Link to="/login" className="signup-link">Login</Link></p>
       </div>

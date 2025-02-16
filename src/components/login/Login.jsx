@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, signInWithPopup, googleProvider } from "../../firebaseConfig";
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import axios from "axios";
 import "./login.css";
 
 const Login = () => {
@@ -19,11 +18,12 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const response = await axios.post("http://localhost:8080/auth/login", { email, password });
+      localStorage.setItem("token", response.data.token);
       alert("Login Successful!");
       navigate("/home");
     } catch (error) {
-      alert("Login Failed: " + error.message);
+      alert("Login Failed: " + error.response.data.message);
     }
   };
 
@@ -34,30 +34,17 @@ const Login = () => {
       return;
     }
     try {
-      await sendPasswordResetEmail(auth, email);
+      await axios.post("http://localhost:8080/auth/forgot-password", { email });
       alert("Password reset link sent! Check your email.");
     } catch (error) {
-      alert("Error: " + error.message);
-    }
-  };
-
-  // Handle Google Sign-In
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      alert(`Signed in as ${user.email}`);
-      navigate("/home", { state: { user: { email: user.email, displayName: user.displayName, uid: user.uid } } });
-    } catch (error) {
-      alert(`Google Sign-In Failed: ${error.message}`);
+      alert("Error: " + error.response.data.message);
     }
   };
 
   return (
     <div className="signup-container">
-      {/* Left Side - Logo & Benefits */}
       <div className="signup-left">
-        <img src={"/images/logoo.png"} alt="Website Logo" className="SignUplogo" onClick={() => navigate("/")} />
+        <img src={"/images/logo.png"} alt="Website Logo" className="SignUplogo" onClick={() => navigate("/")} />
         <h3>Why Join Us?</h3>
         <ul className="benefits-list">
           <li>✔️ Access exclusive deals & offers</li>
@@ -67,7 +54,6 @@ const Login = () => {
         </ul>
       </div>
 
-      {/* Right Side - Login Form */}
       <div className="signup-right">
         <h2>Login to Your Account</h2>
         <form onSubmit={handleLogin} className="signup-form">
@@ -77,9 +63,6 @@ const Login = () => {
         </form>
 
         <div className="social-login">
-          <button className="google-btn" onClick={handleGoogleSignIn}>
-            <i className="fa fa-google"></i> Login with Google
-          </button>
           <button className="forgot-password-btn" onClick={handleForgotPassword}>
             Forgot Password?
           </button>

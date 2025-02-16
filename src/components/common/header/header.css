@@ -54,6 +54,9 @@
   position: relative;
   transition: color 0.3s ease;
 }
+.dropdown-menu{
+  color:white
+}
 
 .nav-link:hover {
   color: orange;
