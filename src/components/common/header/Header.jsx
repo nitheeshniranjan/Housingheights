@@ -1,93 +1,105 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; // ✅ React Router
 import { FaSearch, FaHeart, FaBars, FaTimes } from "react-icons/fa";
-import { navData } from "../../data/Data";
-import "./header.css";
+
+import "./header.css"; // ✅ Custom styles
 
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [buyOpen, setBuyOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [navList, setNavList] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // ✅ Dummy navigation links (Replace with real links if needed)
+  const nav = [
+    { path: "/", text: "Home" },
+    { path: "/Properties", text: "Properties" },
+    { path: "/", text: "AboutUs" },
+    { path: "/contact", text: "Contact" },
+  ];
 
   return (
-    <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <div className="container">
-        {/* Logo */}
-        <Link to="/">
-          <img src="/images/logo.png" alt="Logo" className="Headerlogo" />
-        </Link>
+    <header>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div className="container-fluid">
+          {/* ✅ Logo */}
+          <Link className="navbar-brand" to="/" >
+            <img src="./images/logo.png" alt="Housing Heights" className="logo-img" onClick={() => navigate("/")}/>
+          </Link>
 
-        {/* Hamburger Icon for Mobile */}
-        <div className="mobile-menu-icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-        </div>
+          {/* ✅ Mobile Menu Toggle */}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-        {/* Navigation */}
-        <nav className={`nav-menu ${mobileMenuOpen ? "open" : ""}`}>
-          <ul className="nav-links">
-            {navData.map((item, index) =>
-              item.submenu ? (
-                <li
-                  key={index}
-                  className="dropdown"
-                  onMouseEnter={() => setBuyOpen(true)}
-                  onMouseLeave={() => setBuyOpen(false)}
-                >
-                  <span className="nav-link">
-                    Buy <span className="dropdown-icon">▼</span>
-                  </span>
-                  {buyOpen && (
-                    <ul className="dropdown-menu">
-                      {item.submenu.map((subItem, subIndex) => (
-                        <li key={subIndex}>
-                          <Link to={`/buy/${subItem.toLowerCase()}`}>{subItem}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ) : (
-                <li key={index}>
-                  <Link to={item.link} className={item.highlight ? "nav-link highlight" : "nav-link"}>
-                    {item.name}
+          {/* ✅ Navbar Items */}
+          <div className="collapse navbar-collapse" id="navbarScroll">
+            {/* ✅ Left Side - Navigation */}
+            <ul className="navbar-nav mx-auto my-2 my-lg-0 navbar-nav-scroll">
+              {nav.map((list, index) => (
+                <li className="nav-item" key={index}>
+                  <Link className="nav-link" to={list.path}>
+                    {list.text}
                   </Link>
                 </li>
-              )
-            )}
-          </ul>
-        </nav>
+              ))}
+            </ul>
 
-        {/* Icons and Search Bar */}
-        <div className="icons">
-          <div className="search-container">
-  {searchOpen && (
-    <div className="search-box">
-      <input type="text" placeholder="Search..." />
-      <FaSearch className="search-icon" onClick={() => setSearchOpen(false)} />
-    </div>
-  )}
-  {!searchOpen && <FaSearch className="icon" onClick={() => setSearchOpen(true)} />}
-</div>
+            {/* ✅ Right Section (Search, Wishlist, Sign-in) */}
+            <div className="d-flex d-lg-flex align-items-center  d-sm-flex align-items-center flex-sm-row">
+              {/* 🔍 Search Icon */}
+              <div className="position-relative me-3 mb-2 mb-md-2 mb-sm-2  d-flex d-sm-flex align-items-start flex-sm-column">
+                <i
+                  className="fa fa-search search-icon"
+                  onClick={() => setShowSearch(!showSearch)}
+                ></i>
+                {showSearch && (
+                  <div className="position-absolute search-bar">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Search..."
+                      onClick={() => setSearchTerm(false)} 
+                    />
+                    <i
+                      className="fa fa-times close-search"
+                      onClick={() => setShowSearch(false)}
+                    ></i> 
+                  </div>
+                )}
+                
 
-          <FaHeart className="icon" />
-          <button 
-  className="signup-btn" 
-  onClick={() => window.open('/signup', '_blank', 'noopener,noreferrer')}
->
-  Sign Up
-</button>
+              </div>
+              </div>
 
+
+              <div className="d-flex d-lg-flex align-items-center  d-sm-flex  flex-sm-row">
+
+              {/* ❤️ Wishlist Icon */}
+              <i
+                className={`fa ${liked ? "fa-solid fa-heart text-danger" : "fa-regular fa-heart"} me-3 mb-2 mb-sm-0`}
+                onClick={() => setLiked(!liked)}
+              ></i>
+              </div>
+
+              {/* 📝 Sign In Button */}
+              <div className="d-grid gap-1 col-xl-1 col-lg-1 d-lg-grid gap-2 col-1 d-sm-grid gap-2 col-2">
+              <button className="btn btn-outline-success me-3 mb-3 mb-sm-0  " onClick={() => navigate("/signup")}>
+                Sign in
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </nav>
     </header>
   );
 };

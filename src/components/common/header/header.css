@@ -1,192 +1,53 @@
-/* Base Navbar */
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 15px 30px;
-  background: transparent;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: background 0.3s ease;
-  z-index: 1000;
-  height: 120px;
-}
-
-.navbar.scrolled {
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-}
-
-/* Container */
-.container {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
-
 /* Logo */
-.Headerlogo {
-  height: 90px;
-  margin-top: -10px;
+.logo-img {
+  height: 50px; /* Adjust based on your preference */
+  width: auto;
 }
 
-/* Navigation */
-.nav-menu {
-  display: flex;
-  align-items: center;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 20px;
-  margin-top: 26px;
-}
-
-.nav-link {
-  text-decoration: none;
+/* Search Icon */
+.search-icon, .fa-heart {
+  font-size: 1.3rem;
+  cursor: pointer;
   color: white;
-  font-size: 28px;
-  padding: 10px;
-  position: relative;
-  transition: color 0.3s ease;
-}
-.dropdown-menu{
-  color:white
 }
 
-.nav-link:hover {
-  color: orange;
-}
-
-/* Search Box */
-.search-container {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.search-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 5px 10px;
-  border-radius: 5px;
-  position: relative;
-}
-
-.search-box input {
-  border: none;
-  background: transparent;
-  color: white;
-  font-size: 20px;
+/* Search Bar */
+.search-bar {
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ddd;
   padding: 5px;
-  outline: none;
-  flex-grow: 1;
-}
-
-.search-icon {
-  color: #e64a19;
-  cursor: pointer;
-  font-size: 26px;
-}
-
-/* Icons */
-.icons {
   display: flex;
-  align-items: center;  /* Align icons vertically */
-  gap: 20px;
-  margin-top: 18px;
+  align-items: center;
 }
-
-.icon {
-  font-size: 26px;
-}
-
-.icon:hover {
-  color: #e64a19;
-}
-
-/* Signup Button */
-.signup-btn {
-  background: #ff5722;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
-  font-size: 24px;
-}
-
-.signup-btn:hover {
-  background: #e64a19;
-  transform: scale(1.05);
-}
-
-/* Mobile Menu */
-.mobile-menu-icon {
-  display: none;
-  font-size: 24px;
+.close-search {
+  margin-left: 10px;
   cursor: pointer;
 }
 
-@media (max-width: 1024px) {
-  .nav-menu {
-    display: none; /* Hide the menu by default */
-    flex-direction: column;
-    background: rgba(0, 0, 0, 0.9);
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    padding: 20px 0;
-    text-align: center;
-    z-index: 999;
-  }
+/* Mobile Menu Button */
+.navbar-toggler {
+  border: none;
+}
 
-  .nav-menu.open {
-    display: flex; /* Display the menu when open */
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 20px;
-    padding: 0; /* Remove default padding */
-  }
-
-  .nav-link {
-    font-size: 22px;
-  }
-
-  .mobile-menu-icon {
-    display: block; /* Show the hamburger menu icon on mobile */
-    align-self: center;  /* Center the hamburger icon vertically */
-  }
-
-  .icons {
-    display: flex;
-    align-items: center; /* Align icons vertically */
-    gap: 20px;
-    margin-left: 20px; /* Space the icons from the hamburger menu */
-    align-self: center; /* Center the icons vertically */
-  }
-
-  .signup-btn {
-    display: none; /* Hide the signup button in mobile view */
-  }
-
-  .container {
-    justify-content: space-between; /* Adjust layout for mobile */
-  }
-
-  /* Show signup inside hamburger menu */
-  .nav-menu.open .signup-btn {
-    display: block; /* Show signup button inside the hamburger menu */
-    margin-top: 20px;
+/* Hide the button on large screens (≥992px) */
+@media (min-width: 992px) {
+  .mobile-menu-btn {
+    display: none;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
