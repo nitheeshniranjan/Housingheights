@@ -1,17 +1,37 @@
 
 export const navData = [
   { name: "Home", link: "/" },
-  {
-    name: "Buy",
-    submenu: ["Apartments", "Villas", "Plots", "Commercial"],
-  },
-  { name: "Rent", link: "/rent" },
-  { name: "Sell", link: "/sell" },
-  { name: "List Property", link: "/list-property", highlight: true },
-  { name: "Agents", link: "/agents" },
+  { name: "Properties", link: "/properties", highlight: true },
+  { name: "AboutUs", link: "/aboutUs" },
   { name: "Contact", link: "/contact" },
 ];
 
+// Array of major cities in India for location autocomplete
+export const cities = [
+  "Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata", "Hyderabad", "Pune", "Ahmedabad", 
+  "Surat", "Jaipur", "Lucknow", "Kanpur", "Nagpur", "Indore", "Chandigarh", "Patna", 
+  "Bhopal", "Vadodara", "Kochi", "Coimbatore", "Mysore", "Visakhapatnam", "Goa", "Chennai"
+];
+
+// Array of property types
+export const propertyTypes = [
+  "Apartment", "House", "Villa", "Commercial", "Studio", "Penthouse", "Plot", "Farmhouse"
+];
+
+// Example of price ranges (could be dynamic or customizable based on user needs)
+export const priceRanges = [
+  { min: 0, max: 1000000, label: "Below ₹10 Lakh" },
+  { min: 1000001, max: 5000000, label: "₹10 Lakh - ₹50 Lakh" },
+  { min: 5000001, max: 10000000, label: "₹50 Lakh - ₹1 Crore" },
+  { min: 10000001, max: 50000000, label: "₹1 Crore - ₹5 Crore" },
+  { min: 50000001, max: 100000000, label: "₹5 Crore - ₹10 Crore" },
+  { min: 100000001, max: Infinity, label: "Above ₹10 Crore" }
+];
+
+// You can also add more predefined filters, for example, number of bedrooms and bathrooms
+export const bedroomOptions = [1, 2, 3, 4, 5];
+export const bathroomOptions = [1, 2, 3, 4, 5];
+export const floorOptions = ["Ground", "First", "Second", "Higher Floors"];
 
   
   export const featured = [

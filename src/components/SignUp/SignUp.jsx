@@ -5,6 +5,7 @@ import "./SignUp.css";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "", role: "" });
+  const [isGoogleAuth, setIsGoogleAuth] = useState(false); // Toggle for Google Sign Up
   const navigate = useNavigate();
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,14 +19,21 @@ const SignUp = () => {
     }
 
     try {
-      // Send request to Spring Boot backend
       const response = await axios.post("http://localhost:8080/auth/signup", formData);
-      
       alert(response.data.message || "Registered Successfully!");
       navigate("/login");
     } catch (error) {
       alert("Registration Failed: " + (error.response?.data?.message || error.message));
     }
+  };
+
+  const handleGoogleSignUp = () => {
+    setIsGoogleAuth(true);
+    console.log("Google Authentication Started...");
+  };
+
+  const handleGoBack = () => {
+    setIsGoogleAuth(false);
   };
 
   return (
@@ -46,20 +54,37 @@ const SignUp = () => {
       <div className="signup-right">
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit} className="signup-form">
-          <input type="text" name="name" placeholder="Full Name" onChange={handleChange} required />
-          <input type="email" name="email" placeholder="Email Address" onChange={handleChange} required />
-          <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+          {!isGoogleAuth && (
+            <>
+              <input type="text" name="name" placeholder="Full Name" onChange={handleChange} required />
+              <input type="email" name="email" placeholder="Email Address" onChange={handleChange} required />
+              <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+            </>
+          )}
+          
           <select name="role" onChange={handleChange} required>
             <option value="">Select Role</option>
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>
             <option value="agent">Agent</option>
-            <option value="admin">Admin</option>
           </select>
-          <button type="submit" className="btn">Sign Up</button>
+
+          {!isGoogleAuth && <button type="submit" className="btn">Sign Up</button>}
         </form>
 
-        <p>Already have an account? <Link to="/login" className="signup-link">Login</Link></p>
+        <button className="btn google-btn" onClick={handleGoogleSignUp}>
+          Sign Up with Google
+        </button>
+
+        {isGoogleAuth && (
+          <button className="btn go-back-btn" onClick={handleGoBack}>
+            Go Back
+          </button>
+        )}
+
+        {!isGoogleAuth && (
+          <p>Already have an account? <Link to="/login" className="signup-link">Login</Link></p>
+        )}
       </div>
     </div>
   );

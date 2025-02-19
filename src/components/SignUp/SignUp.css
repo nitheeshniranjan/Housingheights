@@ -75,6 +75,7 @@ input, select {
   font-size: 20px;
 }
 
+/* General Button Styling */
 .btn {
   background: #d88b6c;
   color: white;
@@ -94,6 +95,50 @@ input, select {
   transform: translateY(-3px);
 }
 
+/* Google Sign-Up Button */
+.google-btn {
+  background-color: #4285f4;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.google-btn:hover {
+  background-color: #357ae8;
+  transform: translateY(-3px);
+}
+
+/* Go Back Button */
+.go-back-btn {
+  background-color: #6d4c41;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  max-width: 200px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.go-back-btn:hover {
+  background-color: #4e322a;
+  transform: translateY(-3px);
+}
+
+/* Login Link */
 .signup-link {
   color: #6d4c41;
   font-weight: bold;

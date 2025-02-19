@@ -7,7 +7,6 @@ import "./header.css";
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [buyOpen, setBuyOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -34,58 +33,35 @@ const Header = () => {
         {/* Navigation */}
         <nav className={`nav-menu ${mobileMenuOpen ? "open" : ""}`}>
           <ul className="nav-links">
-            {navData.map((item, index) =>
-              item.submenu ? (
-                <li
-                  key={index}
-                  className="dropdown"
-                  onMouseEnter={() => setBuyOpen(true)}
-                  onMouseLeave={() => setBuyOpen(false)}
-                >
-                  <span className="nav-link">
-                    Buy <span className="dropdown-icon">▼</span>
-                  </span>
-                  {buyOpen && (
-                    <ul className="dropdown-menu">
-                      {item.submenu.map((subItem, subIndex) => (
-                        <li key={subIndex}>
-                          <Link to={`/buy/${subItem.toLowerCase()}`}>{subItem}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ) : (
-                <li key={index}>
-                  <Link to={item.link} className={item.highlight ? "nav-link highlight" : "nav-link"}>
-                    {item.name}
-                  </Link>
-                </li>
-              )
-            )}
+            {navData.map((item, index) => (
+              <li key={index}>
+                <Link to={item.link} className={item.highlight ? "nav-link highlight" : "nav-link"}>
+                  {item.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 
         {/* Icons and Search Bar */}
         <div className="icons">
           <div className="search-container">
-  {searchOpen && (
-    <div className="search-box">
-      <input type="text" placeholder="Search..." />
-      <FaSearch className="search-icon" onClick={() => setSearchOpen(false)} />
-    </div>
-  )}
-  {!searchOpen && <FaSearch className="icon" onClick={() => setSearchOpen(true)} />}
-</div>
+            {searchOpen && (
+              <div className="search-box">
+                <input type="text" placeholder="Search..." />
+                <FaSearch className="search-icon" onClick={() => setSearchOpen(false)} />
+              </div>
+            )}
+            {!searchOpen && <FaSearch className="icon" onClick={() => setSearchOpen(true)} />}
+          </div>
 
           <FaHeart className="icon" />
           <button 
-  className="signup-btn" 
-  onClick={() => window.open('/signup', '_blank', 'noopener,noreferrer')}
->
-  Sign Up
-</button>
-
+            className="signup-btn" 
+            onClick={() => window.open('/signup', '_blank', 'noopener,noreferrer')}
+          >
+            Sign Up
+          </button>
         </div>
       </div>
     </header>
