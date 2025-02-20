@@ -261,9 +261,9 @@ export const propertyTypes = [
   
   export const contactData = {
     description: "Feel free to reach out to us for any queries or support.",
-    email: "hello@relume.io",
-    phone: "+1 (555) 000-0000",
-    address: "123 Sample St, Sydney NSW 2000 AU",
+    email: "HousingHeights@gmail.com",
+    phone: "+91 91234567890",
+    address: "123 main St, India HYD 50090 AU",
   };
   
     

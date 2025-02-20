@@ -19,7 +19,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/auth/signup", formData);
+      const response = await axios.post("http://localhost:8080/signup", formData);
       alert(response.data.message || "Registered Successfully!");
       navigate("/login");
     } catch (error) {
