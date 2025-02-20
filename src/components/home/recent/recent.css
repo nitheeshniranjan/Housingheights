@@ -204,7 +204,35 @@
   .recent .content {
     grid-template-columns: repeat(1, 1fr); /* 1 column on mobile */
   }
+
+  .recent .box {
+    width: 90%; /* Reduce width to make it responsive */
+    height: auto; /* Adjust height dynamically */
+  }
+
+  .recent .img {
+    height: 250px; /* Reduce image height */
+  }
+
+  .recent .text h4 {
+    font-size: 22px; /* Decrease heading size */
+  }
+
+  .recent .text p {
+    font-size: 18px; /* Adjust paragraph size */
+  }
+
+  .recent .button {
+    font-size: 20px; /* Reduce button text size */
+    padding: 10px 15px; /* Adjust padding */
+  }
+
+  .recent .button .btn2 {
+    font-size: 18px; /* Reduce button font size */
+    padding: 8px 12px; /* Adjust button padding */
+  }
 }
+
 
 /* Smooth Fade-in Animation */
 @keyframes fadeIn {

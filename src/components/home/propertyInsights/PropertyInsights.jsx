@@ -4,16 +4,23 @@ import "./propertyInsights.css";
 
 const PropertyInsights = () => {
   return (
-    <section className="insights-container">
-      <h2 className="title"> Property Insights</h2>
+    <section className="insights-section">
+      <h2 className="insights-title">📢 Latest Real Estate Insights</h2>
+      <p className="insights-subtitle">Stay ahead with in-depth market trends and property investment tips.</p>
       <div className="insights-grid">
         {insightsData.map((item, index) => (
-          <div key={index} className="insight-card">
-            <div className="insight-card-header">
-              <h3>{item.title}</h3>
-            </div>
-            <div className="insight-card-body">
-              <p>{item.description}</p>
+          <div key={index} className="flip-card">
+            <div className="flip-card-inner">
+              <div className="flip-card-front">
+                <h3>{item.title}</h3>
+              </div>
+              <div className="flip-card-back">
+                <ul>
+                  {item.points.map((point, i) => (
+                    <li key={i}>{point}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         ))}
@@ -23,3 +30,5 @@ const PropertyInsights = () => {
 };
 
 export default PropertyInsights;
+
+

@@ -21,7 +21,9 @@ const Home = () => {
    <WhyChooseUs />
    <Testimonials />
    <PropertyInsights />
-   <Contact />
+   <section id="contact" className="contact-section">
+  <Contact />
+</section>
 
     </>
   )

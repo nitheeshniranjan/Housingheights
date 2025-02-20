@@ -6,23 +6,33 @@ import "./hero.css";
 const Hero = () => {
   const navigate = useNavigate(); // Hook to navigate between pages
 
-  // State for autocomplete, dropdown, and slider
+  // State for autocomplete, dropdown, and price range
   const [location, setLocation] = useState("");
   const [propertyType, setPropertyType] = useState("");
-  const [priceRange, setPriceRange] = useState(500000); // Default price range
-  const [currency, setCurrency] = useState('USD'); // Default currency
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [currency, setCurrency] = useState("INR"); // Default currency
 
-  // Handle change for autocomplete, dropdown, and slider
+  // Handle input changes
   const handleLocationChange = (e) => setLocation(e.target.value);
   const handlePropertyTypeChange = (e) => setPropertyType(e.target.value);
-  const handlePriceRangeChange = (e) => setPriceRange(e.target.value);
+  const handleMinPriceChange = (e) => {
+    const value = Math.max(0, Number(e.target.value)); // Prevent negative values
+    setMinPrice(value);
+  };
+  const handleMaxPriceChange = (e) => {
+    const value = Math.max(0, Number(e.target.value)); // Prevent negative values
+    setMaxPrice(value);
+  };
 
   // Format price with currency symbol
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency,
-    }).format(price);
+    return price
+      ? new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: currency,
+        }).format(price)
+      : "";
   };
 
   return (
@@ -39,9 +49,9 @@ const Hero = () => {
       <div className="container">
         {/* Title and Subtitle */}
         <div className="text-container">
-          <Heading 
-            title="Search Your Next Home" 
-            subtitle="Find new & featured property located in your local city or any city." 
+          <Heading
+            title="Search Your Next Dream Property"
+            subtitle="Find new & featured property located in your local city or any city."
           />
         </div>
 
@@ -54,7 +64,7 @@ const Hero = () => {
 
         {/* Search Form */}
         <form className="search-form">
-          {/* Location (Autocomplete) */}
+          {/* Location Input */}
           <div className="box">
             <span>City/Street</span>
             <input
@@ -65,7 +75,7 @@ const Hero = () => {
             />
           </div>
 
-          {/* Property Type (Dropdown) */}
+          {/* Property Type Dropdown */}
           <div className="box">
             <span>Property Type</span>
             <select
@@ -82,21 +92,29 @@ const Hero = () => {
             </select>
           </div>
 
-          {/* Price Range (Slider) */}
+          {/* Price Range (Min & Max Inputs) */}
           <div className="box">
             <span>Price Range</span>
-            <input
-              type="range"
-              min="100000"
-              max="1000000"
-              step="10000"
-              value={priceRange}
-              onChange={handlePriceRangeChange}
-              className="price-slider"
-            />
-            <span>{formatPrice(priceRange)}</span>
+            <div className="price-inputs">
+              <input
+                type="number"
+                placeholder="Min Price"
+                value={minPrice}
+                onChange={handleMinPriceChange}
+                className="price-field"
+              />
+              <span> - </span>
+              <input
+                type="number"
+                placeholder="Max Price"
+                value={maxPrice}
+                onChange={handleMaxPriceChange}
+                className="price-field"
+              />
+            </div>
           </div>
 
+          {/* Search Button */}
           <button className="btn1">
             <i className="fa fa-search"></i>
           </button>

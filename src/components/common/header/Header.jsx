@@ -1,34 +1,47 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // ✅ React Router
-import { FaSearch, FaHeart, FaBars, FaTimes } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"; 
+import { FaSearch, FaHeart } from "react-icons/fa";
 
-import "./header.css"; // ✅ Custom styles
+import "./header.css"; 
 
 const Header = () => {
   const navigate = useNavigate();
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [navList, setNavList] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // ✅ Dummy navigation links (Replace with real links if needed)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const nav = [
     { path: "/", text: "Home" },
     { path: "/Properties", text: "Properties" },
     { path: "/", text: "AboutUs" },
-    { path: "/contact", text: "Contact" },
+    { path: "#contact", text: "Contact" }, 
   ];
 
   return (
     <header>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+      <nav className={`navbar navbar-expand-lg fixed-top ${scrolled ? "scrolled" : ""}`}>
         <div className="container-fluid">
-          {/* ✅ Logo */}
           <Link className="navbar-brand" to="/">
-            <img src="./images/logo.png" alt="Housing Heights" className="logo-img" onClick={() => navigate("/")} />
+            <img src="./images/logo.png" alt="Housing Heights" className="logo-img" onClick={() => navigate("/")}/>
           </Link>
 
-          {/* ✅ Mobile Menu Toggle */}
           <button
             className="navbar-toggler"
             type="button"
@@ -37,48 +50,49 @@ const Header = () => {
             aria-controls="navbarScroll"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{ borderColor: "white" }}
           >
-            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+            <span className="navbar-toggler-icon" style={{ borderColor: "#A9A9A9" }}></span>
           </button>
 
-          {/* ✅ Navbar Items */}
-          <div className={`collapse navbar-collapse ${mobileMenuOpen ? "show" : ""}`} id="navbarScroll">
-            <ul className="navbar-nav mx-auto">
-              {nav.map((item, index) => (
+          <div className="collapse navbar-collapse" id="navbarScroll">
+            <ul className="navbar-nav mx-auto my-2 my-lg-0 navbar-nav-scroll">
+              {nav.map((list, index) => (
                 <li className="nav-item" key={index}>
-                  <Link className="nav-link" to={item.path}>
-                    {item.text}
+                {list.path.startsWith("#") ? (
+                  <a className="nav-link" href={list.path}>
+                    {list.text}
+                  </a>
+                ) : (
+                  <Link className="nav-link" to={list.path}>
+                    {list.text}
                   </Link>
-                </li>
+                )}
+              </li>
               ))}
             </ul>
 
-            {/* ✅ Right Section (Search, Wishlist, Sign-in) */}
-            <div className="d-flex align-items-center">
-              {/* 🔍 Search Icon */}
-              <div className="search-container">
-                {searchOpen && (
-                  <div className="search-box">
-                    <input
-                      type="text"
-                      placeholder="Search..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <FaTimes className="search-icon" onClick={() => setSearchOpen(false)} />
+            <div className="d-flex gap-3 flex-column flex-lg-row align-items-start align-items-lg-center">
+              <div className="position-relative">
+                <i className="fa fa-search search-icon" onClick={() => setShowSearch(!showSearch)}></i>
+                {showSearch && (
+                  <div className="position-absolute search-bar">
+                    <input type="text" className="form-control" placeholder="Search..." onClick={() => setSearchTerm(false)} />
+                    <i className="fa fa-times close-search" onClick={() => setShowSearch(false)}></i>
                   </div>
                 )}
-                {!searchOpen && <FaSearch className="icon" onClick={() => setSearchOpen(true)} />}
               </div>
 
-              {/* ❤️ Wishlist Icon */}
-              <FaHeart className={`icon ${liked ? "liked" : ""}`} onClick={() => setLiked(!liked)} />
+              <i className={`fa ${liked ? "fa-solid fa-heart text-danger" : "fa-regular fa-heart"}`} onClick={() => setLiked(!liked)}></i>
 
-              {/* 📝 Sign In Button */}
-              <button className="btn btn-outline-success" onClick={() => navigate("/signup")}>
-                Sign In
-              </button>
+              <div className="d-flex gap-2 flex-column flex-lg-row align-items-start align-items-lg-center">
+                <button className="btn btn-warning signinbtn py-1 px-3 btn-sm w-auto " onClick={() => navigate("/signup")}>
+                  SignUp
+                </button>
+                <button className="btn btn-warning loginbtn py-1 px-3 btn-sm w-auto" onClick={() => navigate("/login")}>
+                  Login
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -55,7 +55,7 @@
 }
 
 h2 {
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
   color: #6d4c41;
   font-size: 32px;
 }
@@ -63,6 +63,7 @@ h2 {
 .signup-form {
   width: 80%;
   max-width: 400px;
+  margin-bottom: 20px;
 }
 
 input, select {
@@ -72,50 +73,59 @@ input, select {
   border: 1px solid #e0c4a7;
   border-radius: 8px;
   background: #fdf7f2;
-  font-size: 20px;
+  font-size: 20px !important;
+  font-weight: 400;
+  margin-bottom: 20px !important; /* Increased spacing */
 }
 
 /* General Button Styling */
 .btn {
-  background: #d88b6c;
+  background: #f27d2e!important; /* Gradient effect */
   color: white;
-  padding: 14px;
+  padding: 10px !important; /* Increased padding for better visibility */
   width: 100%;
   border: none;
-  border-radius: 10px;
-  font-size: 20px;
+  border-radius: 12px;
+  font-size: 21px !important; /* Slightly larger font */
   font-weight: bold;
   cursor: pointer;
-  margin-top: 15px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 20px; /* Increased spacing */
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .btn:hover {
-  background: #b76b50;
+  background:  #f66f46 !important; /* Darker shade */
   transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Google Sign-Up Button */
+
 .google-btn {
-  background-color: #4285f4;
+  background: #4285f4;
   color: white;
-  font-size: 18px;
-  padding: 12px;
+  font-size: 20px; /* Slightly larger */
+  font-weight: bold;
+  padding: 14px;
   width: 100%;
-  max-width: 250px;
-  border-radius: 10px;
+  max-width: 280px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  gap: 10px; /* Adds spacing between icon & text */
+  margin-top: 15px; /* More spacing */
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .google-btn:hover {
-  background-color: #357ae8;
+  background: #357ae8;
   transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Go Back Button */
 .go-back-btn {
@@ -154,6 +164,7 @@ input, select {
 .signup-right p {
   font-size: 22px;
   font-weight: 400;
+  margin-top: 20px;
 }
 
 /* Responsive */
