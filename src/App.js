@@ -5,7 +5,8 @@ import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/login/Login";
 import Footer from "./components/common/footer/Footer";
 import Home from "./components/home/Home";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import 'font-awesome/css/font-awesome.min.css';
+
 import "./App.css";
 
 function App() {
