@@ -27,20 +27,6 @@ const Login = () => {
     }
   };
 
-  // Handle Forgot Password
-  const handleForgotPassword = async () => {
-    if (!email) {
-      alert("Please enter your email first!");
-      return;
-    }
-    try {
-      await axios.post("http://localhost:8080/auth/forgot-password", { email });
-      alert("Password reset link sent! Check your email.");
-    } catch (error) {
-      alert("Error: " + error.response.data.message);
-    }
-  };
-
   return (
     <div className="signup-container">
       <div className="signup-left">
@@ -63,9 +49,9 @@ const Login = () => {
         </form>
 
         <div className="social-login">
-          <button className="forgot-password-btn" onClick={handleForgotPassword}>
+          <Link to="/forgot-password" className="forgot-password-btn">
             Forgot Password?
-          </button>
+          </Link>
         </div>
 
         <p>Don't have an account? <Link to="/signup" className="signup-link">Sign Up</Link></p>
