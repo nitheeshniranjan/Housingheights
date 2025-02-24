@@ -16,17 +16,20 @@ const Contact = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:9999/api/contact/submit", {
+      console.log(JSON.stringify(formData));
+      const response = await fetch("http://localhost:8080/api/contacts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        
       });
 
       if (response.ok) {

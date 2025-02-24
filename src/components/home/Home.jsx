@@ -8,6 +8,7 @@ import WhyChooseUs from "./whyChooseUs/WhyChooseUs"
 import Testimonials from "./testimonials/Testimonials"
 import PropertyInsights from "./propertyInsights/PropertyInsights"
 import Contact from "./contact/Contact"
+import Profile from "./profile/profile"
 
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
       <Featured />
       <Recent />
       <HowItWorks />
+      <Profile/>
       <VirtualTours />
    <WhyChooseUs />
    <Testimonials />
