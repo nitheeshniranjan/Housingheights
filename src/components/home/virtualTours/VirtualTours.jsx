@@ -15,15 +15,21 @@ const VirtualTours = () => {
       <div className="map-container">
         <MapContainer center={[17.385, 78.4867]} zoom={12} className="map">
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          {properties.map((property, index) => (
-            <Marker
-              key={index}
-              position={[property.lat, property.lng]}
-              eventHandlers={{ click: () => setSelectedTour(property) }}
-            >
-              <Popup>{property.name}</Popup>
-            </Marker>
-          ))}
+          {properties.map((property, index) => {
+            if (!property.lat || !property.lng) {
+              console.warn(`Skipping property ${property.name} due to missing lat/lng.`);
+              return null;
+            }
+            return (
+              <Marker
+                key={index}
+                position={[property.lat, property.lng]}
+                eventHandlers={{ click: () => setSelectedTour(property) }}
+              >
+                <Popup>{property.name}</Popup>
+              </Marker>
+            );
+          })}
         </MapContainer>
       </div>
 

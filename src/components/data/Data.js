@@ -1,7 +1,7 @@
 
 export const navData = [
   { name: "Home", link: "/" },
-  { name: "Properties", link: "/properties", highlight: true },
+  { path: "/properties", text: "Properties" },
   { name: "AboutUs", link: "/aboutUs" },
   { name: "Contact", link: "/contact" },
 ];
@@ -113,20 +113,7 @@ export const propertyTypes = [
       description: "Negotiate and complete your transaction with secure payment options."
     }
   ];
-  export const properties = [
-    {
-      name: "Luxury Apartment, Hyderabad",
-      lat: 17.385,
-      lng: 78.4867,
-      virtualTour: "https://example.com/luxury-apartment-360.jpg",
-    },
-    {
-      name: "Villa in Bangalore",
-      lat: 12.9716,
-      lng: 77.5946,
-      virtualTour: "https://example.com/villa-bangalore-360.jpg",
-    },
-  ];
+
   export const whyChooseUsData = [
     {
       title: "Secure Transactions",
@@ -265,5 +252,38 @@ export const propertyTypes = [
     phone: "+91 91234567890",
     address: "123 main St, India HYD 50090 AU",
   };
+  export const properties = [
+    {
+      id: 3,
+      title: "Furnished 2BHK in Powai",
+      location: "Hiranandani Gardens",
+      price: "₹1.5 Lac",
+      deposit: "4 months rent",
+      area: "1400",
+      bhk: 2,
+      bathrooms: 2,
+      highlights: ["Gated Community", "Park Facing"],
+      postedTime: "5d",
+      dealer: "ABC Realty",
+      image: "https://via.placeholder.com/400",
+      latitude: 19.0760,  // ✅ Ensure valid latitude
+      longitude: 72.8777  // ✅ Ensure valid longitude
+    },
+    {
+      id: 4,
+      title: "3BHK Sea View Apartment",
+      location: "Worli, Mumbai",
+      price: "₹2.3 Lac",
+      deposit: "6 months rent",
+      area: "1800",
+      bhk: 3,
+      bathrooms: 3,
+      highlights: ["Sea Facing", "Luxury Interior"],
+      postedTime: "2d",
+      dealer: "XYZ Realty",
+      image: "https://via.placeholder.com/400",
+      latitude: 18.9986,  // ✅ Added latitude
+      longitude: 72.8258  // ✅ Added longitude
+    }
+  ];
   
-    
