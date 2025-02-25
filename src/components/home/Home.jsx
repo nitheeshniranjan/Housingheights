@@ -9,6 +9,7 @@ import Testimonials from "./testimonials/Testimonials"
 import PropertyInsights from "./propertyInsights/PropertyInsights"
 import Contact from "./contact/Contact"
 import Profile from "./profile/profile"
+import PropertiesForm from "./propertiesform/PropertiesForm"
 
 
 const Home = () => {
@@ -19,12 +20,14 @@ const Home = () => {
       <Recent />
       <HowItWorks />
       <Profile/>
+     
       <VirtualTours />
    <WhyChooseUs />
    <Testimonials />
    <PropertyInsights />
    <section id="contact" className="contact-section">
   <Contact />
+  <PropertiesForm/>
 </section>
 
     </>

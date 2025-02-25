@@ -1,158 +1,162 @@
-import React, { useState } from "react";
-import { properties } from "../data/Data";
-import PropertyCard from "./PropertyCard";
+import React, { useState, useEffect } from "react";
 import PropHeader from "./PropHeader";
+import PropertyCard from "./PropertyCard";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./properties.css";
 
-
-
-
 const Properties = () => {
+  const [properties, setProperties] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [locationFilter, setLocationFilter] = useState("Western Mumbai");
-
-  // State for filters
-  const [budget, setBudget] = useState([0, 100]); // Example range 0 to 100 Lac
-  const [area, setArea] = useState([0, 5000]); // Example range 0 to 5000 sq.ft.
   const [propertyType, setPropertyType] = useState("");
-  const [constructionStatus, setConstructionStatus] = useState("");
-  const [postedBy, setPostedBy] = useState("");
-  const [furnishingStatus, setFurnishingStatus] = useState("");
-  const [availableFor, setAvailableFor] = useState("");
-  const [availableFrom, setAvailableFrom] = useState("");
-  const [ageOfProperty, setAgeOfProperty] = useState("");
-  const [verifiedOnly, setVerifiedOnly] = useState(false);
+  const [listingType, setListingType] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [minArea, setMinArea] = useState("");
+  const [maxArea, setMaxArea] = useState("");
+  const [bedrooms, setBedrooms] = useState("");
+  const [bathrooms, setBathrooms] = useState("");
+  const [ownershipType, setOwnershipType] = useState("");
   const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [availability, setAvailability] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [country, setCountry] = useState("");
 
-  const toggleWishlist = (id) => {
-    setWishlist((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+  useEffect(() => {
+    fetch("/api/properties")
+      .then((res) => res.json())
+      .then((data) => setProperties(data))
+      .catch((error) => console.error("Error fetching properties:", error));
+  }, []);
+
+  const toggleWishlist = (propertyId) => {
+    setWishlist((prevWishlist) =>
+      prevWishlist.includes(propertyId)
+        ? prevWishlist.filter((id) => id !== propertyId)
+        : [...prevWishlist, propertyId]
+    );
+  };
+
+  const toggleAmenity = (amenity) => {
+    setSelectedAmenities((prevAmenities) =>
+      prevAmenities.includes(amenity)
+        ? prevAmenities.filter((item) => item !== amenity)
+        : [...prevAmenities, amenity]
     );
   };
 
   const clearAllFilters = () => {
     setPropertyType("");
-    setConstructionStatus("");
-    setPostedBy("");
-    setFurnishingStatus("");
-    setAvailableFor("");
-    setAvailableFrom("");
-    setAgeOfProperty("");
-    setVerifiedOnly(false);
+    setListingType("");
+    setMinPrice("");
+    setMaxPrice("");
+    setMinArea("");
+    setMaxArea("");
+    setBedrooms("");
+    setBathrooms("");
+    setOwnershipType("");
     setSelectedAmenities([]);
-    setBudget([0, 100]);
-    setArea([0, 5000]);
+    setAvailability("");
+    setCity("");
+    setState("");
+    setZipCode("");
+    setCountry("");
   };
 
-  const handleCheckboxChange = (value) => {
-    setSelectedAmenities((prev) =>
-      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+  const filteredProperties = properties.filter((property) => {
+    return (
+      (!propertyType || property.type === propertyType) &&
+      (!listingType || property.listingType === listingType) &&
+      (!minPrice || property.price >= minPrice) &&
+      (!maxPrice || property.price <= maxPrice) &&
+      (!minArea || property.area >= minArea) &&
+      (!maxArea || property.area <= maxArea) &&
+      (!bedrooms || property.bedrooms.toString() === bedrooms) &&
+      (!bathrooms || property.bathrooms.toString() === bathrooms) &&
+      (!ownershipType || property.ownershipType === ownershipType) &&
+      (!city || property.city === city) &&
+      (!state || property.state === state) &&
+      (!zipCode || property.zipCode === zipCode) &&
+      (!country || property.country === country) &&
+      (selectedAmenities.length === 0 || selectedAmenities.every((amenity) => property.amenities.includes(amenity))) &&
+      (!availability || property.availability === availability)
     );
-  };
+  });
 
   return (
     <div className="properties-page">
       <PropHeader />
       <div className="container-fluid">
         <div className="row">
-          {/* Sidebar Filters */}
           <div className="col-md-3 filters p-4 shadow-sm">
             <h2 className="mb-3">Filters</h2>
             <button className="clear-all" onClick={clearAllFilters}>Clear All</button>
 
-            {/* Budget & Area Slider */}
-            <h4>Budget (₹ Lac)</h4>
-            <input type="range" min="0" max="100" step="1"
-              value={budget[0]} onChange={(e) => setBudget([e.target.value, budget[1]])} />
-            <input type="range" min="0" max="100" step="1"
-              value={budget[1]} onChange={(e) => setBudget([budget[0], e.target.value])} />
-            <p>{budget[0]} - {budget[1]} Lac</p>
-
-            <h4>Area (sq.ft.)</h4>
-            <input type="range" min="0" max="5000" step="10"
-              value={area[0]} onChange={(e) => setArea([e.target.value, area[1]])} />
-            <input type="range" min="0" max="5000" step="10"
-              value={area[1]} onChange={(e) => setArea([area[0], e.target.value])} />
-            <p>{area[0]} - {area[1]} sq.ft.</p>
-
-            {/* Property Type Dropdown */}
-            <h4>Type of Property</h4>
+            <h4>Property Type</h4>
             <select className="form-control" value={propertyType} onChange={(e) => setPropertyType(e.target.value)}>
               <option value="">Select</option>
-              <option value="Apartment">Residential Apartment</option>
-              <option value="Villa">Independent House/Villa</option>
-              <option value="Land">Residential Land</option>
+              <option value="Apartment">Apartment</option>
+              <option value="House">House</option>
+              <option value="Villa">Villa</option>
+              <option value="Office">Office</option>
+              <option value="Land">Land</option>
             </select>
 
-            {/* Construction Status Dropdown */}
-            <h4>Construction Status</h4>
-            <select className="form-control" value={constructionStatus} onChange={(e) => setConstructionStatus(e.target.value)}>
+            <h4>Listing Type</h4>
+            <select className="form-control" value={listingType} onChange={(e) => setListingType(e.target.value)}>
               <option value="">Select</option>
-              <option value="New Launch">New Launch</option>
-              <option value="Under Construction">Under Construction</option>
-              <option value="Ready to Move">Ready to move</option>
+              <option value="For Sale">For Sale</option>
+              <option value="For Rent">For Rent</option>
             </select>
 
-            {/* Posted By Dropdown */}
-            <h4>Posted By</h4>
-            <select className="form-control" value={postedBy} onChange={(e) => setPostedBy(e.target.value)}>
+            <h4>Price Range</h4>
+            <input type="number" className="form-control" placeholder="Min" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+            <input type="number" className="form-control" placeholder="Max" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+
+            <h4>Bedrooms</h4>
+            <input type="number" className="form-control" value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} />
+
+            <h4>Bathrooms</h4>
+            <input type="number" className="form-control" value={bathrooms} onChange={(e) => setBathrooms(e.target.value)} />
+
+            <h4>Ownership Type</h4>
+            <select className="form-control" value={ownershipType} onChange={(e) => setOwnershipType(e.target.value)}>
               <option value="">Select</option>
-              <option value="Owner">Owner</option>
-              <option value="Builder">Builder</option>
-              <option value="Dealer">Dealer</option>
+              <option value="Freehold">Freehold</option>
+              <option value="Leasehold">Leasehold</option>
             </select>
 
-            {/* Furnishing Status Dropdown */}
-            <h4>Furnishing Status</h4>
-            <select className="form-control" value={furnishingStatus} onChange={(e) => setFurnishingStatus(e.target.value)}>
+            <h4>Amenities</h4>
+            {["Swimming Pool", "Gym", "Security", "Garden", "Lift", "Power Backup", "Parking", "Pet Friendly", "Internet & Cable TV"].map((amenity) => (
+              <div key={amenity}>
+                <input type="checkbox" checked={selectedAmenities.includes(amenity)} onChange={() => toggleAmenity(amenity)} /> {amenity}
+              </div>
+            ))}
+
+            <h4>Availability for Visits</h4>
+            <select className="form-control" value={availability} onChange={(e) => setAvailability(e.target.value)}>
               <option value="">Select</option>
-              <option value="Furnished">Furnished</option>
-              <option value="Semi-Furnished">Semi-Furnished</option>
-              <option value="Unfurnished">Unfurnished</option>
+              <option value="Anytime">Anytime</option>
+              <option value="Weekdays">Weekdays</option>
+              <option value="Weekends">Weekends</option>
+              <option value="By Appointment">By Appointment</option>
             </select>
-
-            {/* Available For Dropdown */}
-            <h4>Available For</h4>
-            <select className="form-control" value={availableFor} onChange={(e) => setAvailableFor(e.target.value)}>
-              <option value="">Select</option>
-              <option value="Family">Family</option>
-              <option value="Single Men">Single Men</option>
-              <option value="Single Women">Single Women</option>
-            </select>
-
-            {/* Available From Dropdown */}
-            <h4>Available From</h4>
-            <select className="form-control" value={availableFrom} onChange={(e) => setAvailableFrom(e.target.value)}>
-              <option value="">Select</option>
-              <option value="Any Time">Any Time</option>
-              <option value="Immediately">Immediately</option>
-            </select>
-
-            {/* Age of Property Dropdown */}
-            <h4>Age of Property</h4>
-            <select className="form-control" value={ageOfProperty} onChange={(e) => setAgeOfProperty(e.target.value)}>
-              <option value="">Select</option>
-              <option value="0-1 years">0-1 years old</option>
-              <option value="5-10 years">5-10 years old</option>
-            </select>
-
-            {/* Verified Property Toggle */}
-            <h4>Verified Property</h4>
-            <label className="switch">
-              <input type="checkbox" checked={verifiedOnly} onChange={() => setVerifiedOnly(!verifiedOnly)} />
-              <span className="slider round"></span>
-            </label>
-
-            <button className="btn btn-primary w-100 mt-3">Apply Filters</button>
           </div>
 
-          {/* Main Content */}
-          <div className="col-md-9 p-4">
+          <div className="col-md-9">
             <div className="row">
-              {properties.map((property) => (
-                <PropertyCard key={property.id} property={property} isWishlisted={wishlist.includes(property.id)} toggleWishlist={toggleWishlist} />
-              ))}
+              {filteredProperties.length > 0 ? (
+                filteredProperties.map((property) => (
+                  <div key={property.id} className="col-md-4 mb-4">
+                    <PropertyCard property={property} isWishlisted={wishlist.includes(property.id)} toggleWishlist={toggleWishlist} />
+                  </div>
+                ))
+              ) : (
+                <div className="col-12 text-center">
+                  <p>No properties found matching your filters.</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

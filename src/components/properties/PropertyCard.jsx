@@ -1,12 +1,7 @@
 import React from "react";
 import { FaHeart } from "react-icons/fa";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const PropertyCard = ({ property, isWishlisted, toggleWishlist }) => {
-  // Ensure valid latitude & longitude; fallback to Mumbai
-  const hasValidLocation = property.latitude !== undefined && property.longitude !== undefined;
-  const position = hasValidLocation ? [property.latitude, property.longitude] : [19.0760, 72.8777];
-
   return (
     <div className="col-md-6 mb-4">
       <div className="card property-card shadow-sm p-3">
@@ -24,19 +19,9 @@ const PropertyCard = ({ property, isWishlisted, toggleWishlist }) => {
             ))}
           </div>
 
-          {/* ✅ Only render map if latitude & longitude exist */}
-          {hasValidLocation && (
-            <MapContainer center={position} zoom={13} style={{ height: "200px", width: "100%", marginTop: "10px" }}>
-              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              <Marker position={position}>
-                <Popup>{property.title}</Popup>
-              </Marker>
-            </MapContainer>
-          )}
-
           <div className="d-flex justify-content-between align-items-center mt-3">
             <span className="text-muted small">{property.postedTime} ago</span>
-            <span className="verified-badge">99acres Verified</span>
+            <span className="verified-badge">Verified</span>
           </div>
 
           <div className="d-flex justify-content-between align-items-center mt-2">

@@ -1,97 +1,88 @@
 import React, { useState } from "react";
 import { FaSearch, FaUser, FaBars, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { navData } from "../data/Data";
 import "./propheader.css";
 
 const PropHeader = () => {
-  const [location, setLocation] = useState("Western Mumbai");
   const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userDropdown, setUserDropdown] = useState(false);
   const [propertyType, setPropertyType] = useState("Buy");
 
+  const location = useLocation(); // Get current page location
+
+  const closeSidebar = () => setIsSidebarOpen(false);
+
   return (
     <>
-      {/* Header */}
       <nav className="header">
-        {/* Logo */}
         <div className="logo">
           <Link to="/">
             <img src="/images/logo.png" alt="Company Logo" className="small-logo" />
           </Link>
         </div>
-{/* Search Bar */}
-<div className="search-bar">
-  {/* Property Type Dropdown */}
-  <select
-    className="dropdown"
-    value={propertyType}
-    onChange={(e) => setPropertyType(e.target.value)}
-  >
-    <optgroup label="Residential">
-      <option value="Buy">Buy</option>
-      <option value="Rent">Rent</option>
-      <option value="Sell">Sell</option>
-    </optgroup>
-    <optgroup label="Commercial">
-      <option value="Buy">Buy</option>
-      <option value="Lease">Lease</option>
-    </optgroup>
-  </select>
 
-  {/* Location Tag (If selected) */}
-  {location && (
-    <span className="location-tag">
-      {location} <button onClick={() => setLocation("")}>✖</button>
-    </span>
-  )}
+        {/* Search Bar */}
+        <div className="search-bar">
+          <select
+            className="dropdown"
+            value={propertyType}
+            onChange={(e) => setPropertyType(e.target.value)}
+          >
+            <optgroup label="Residential">
+              <option value="Buy">Buy</option>
+              <option value="Rent">Rent</option>
+              <option value="Sell">Sell</option>
+            </optgroup>
+          </select>
 
-  {/* Search Input */}
-  <input
-    type="text"
-    className="large-input"
-    placeholder="Search properties..."
-    value={searchQuery}
-    onChange={(e) => setSearchQuery(e.target.value)}
-  />
+          <input
+            type="text"
+            className="large-input"
+            placeholder="Search by location, price, property type..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
 
-  {/* Search Button with Icon */}
-  <button className="search-btn">
-    <FaSearch className="search-icon" />
-  </button>
-</div>
+          <button className="search-btn">
+            <FaSearch className="search-icon" />
+          </button>
+        </div>
 
         {/* Right-Side Icons */}
         <div className="right-section">
-          {/* User Profile */}
           <div className="user-profile" onClick={() => setUserDropdown(!userDropdown)}>
             <FaUser />
             {userDropdown && (
               <div className="user-dropdown">
-                <a href="/profile">Profile</a>
-                <a href="/my-properties">My Properties</a>
-                <a href="/settings">Settings</a>
-                <a href="/logout">Logout</a>
+                <Link to="/profile" onClick={closeSidebar}>Profile</Link>
+                <Link to="/my-properties" onClick={closeSidebar}>My Properties</Link>
+                <Link to="/settings" onClick={closeSidebar}>Settings</Link>
+                <Link to="/logout" onClick={closeSidebar}>Logout</Link>
               </div>
             )}
           </div>
 
-          {/* Hamburger Menu */}
           <FaBars className="hamburger" onClick={() => setIsSidebarOpen(true)} />
         </div>
       </nav>
 
-      {/* Sidebar - Opens from Right */}
+      {/* Sidebar */}
       {isSidebarOpen && (
         <div className="sidebar slide-in-right">
-          <FaTimes className="close-sidebar" onClick={() => setIsSidebarOpen(false)} />
+          <FaTimes className="close-sidebar" onClick={closeSidebar} />
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/buy">Buy</a></li>
-            <li><a href="/rent">Rent</a></li>
-            <li><a href="/pg">PG</a></li>
-            <li><a href="/commercial">Commercial</a></li>
-            <li><a href="/contact">Contact</a></li>
+            {navData.map((item, index) => (
+              <li key={index}>
+                {location.pathname === item.path ? (
+                  // If the user is on "Properties" page, don't navigate
+                  <span className="inactive-link">{item.name}</span>
+                ) : (
+                  <Link to={item.path} onClick={closeSidebar}>{item.name}</Link>
+                )}
+              </li>
+            ))}
           </ul>
         </div>
       )}
