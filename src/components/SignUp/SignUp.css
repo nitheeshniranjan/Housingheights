@@ -17,6 +17,12 @@
   position: relative;
 }
 
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
 .SignUplogo {
   width: 200px;
   cursor: pointer;
